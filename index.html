@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vidushi</title>
+
+  <style>
+   @import url("https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap");
+   * { box-sizing: border-box; }
+  
+  body {
+    background-image: url("mountain.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: "Architects Daughter", cursive;
+  }
+
+  /* --- INTERNAL IMAGE FIX --- */
+  .new-year img {
+    width: auto;
+    height: auto;
+    max-width: 85%;
+    /* Card bada ho gaya hai, isliye image ko bhi thodi jagah di hai */
+    max-height: 30%; 
+    margin-top: 20px;
+    margin-bottom: 10px;
+    object-fit: contain;
+  }
+
+  .card {
+    perspective: 1500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: center;
+    transform: translate(-50%, -50%);
+    transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation: cardIn 1s alternate cubic-bezier(0.87, -0.41, 0.19, 1.44);
+    z-index: 2;
+   }
+
+  .card:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 500px #000;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .card.is-opened {
+    transform: rotate(0deg) translate(-10px, -120px);
+    z-index: 10;
+  }
+
+  .card.is-opened .cart-page-front {
+    transform: rotateY(-180deg); 
+  }
+
+  @keyframes cardIn {
+   0% { opacity: 0; transform: rotate(0deg) translate(-50%, -100%); }
+   25% { opacity: 1; }
+   100% { opacity: 1; transform: rotate(0deg) translate(0, -10%); }
+  }
+
+  /* --- CARD SIZE (BIGGER) --- */
+  .card, .card-page, .sc-page {
+    width: 450px;  /* Aur bada kar diya */
+    height: 600px; /* Aur bada kar diya */
+  }
+
+  .card-page {
+    transition: transform 1s ease-in-out;
+    cursor: pointer;
+    position: absolute;
+    outline: 1px solid transparent;
+  }
+
+  .cart-page-front {
+    transform-origin: 0 50% 0;
+    transform-style: preserve-3d;
+    transform: rotateY(-20deg);
+    z-index: 5; 
+  }
+
+  .cart-page-outside, .cart-page-inside {
+    position: absolute;
+    backface-visibility: hidden; 
+    width: 100%;
+    height: 100%;
+  }
+
+  /* --- COVER PAGE --- */
+  .cart-page-outside {
+    border: 10px solid #fbfbfb;
+    background-image: url(cover.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Full Fit - Original Request */
+    background-size: 100% 100%; 
+    border-radius: 5px;
+  }
+
+  .cart-page-inside {
+    background-color: #200581;
+    background-image: url("stars.jpg");
+    background-size: cover; 
+    border: 10px solid #f9f9f9;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center; 
+    flex-direction: column;
+    transform: rotateY(-180deg);
+    padding: 15px;
+    overflow: hidden;
+  }
+
+  /* Video Page Container */
+  .sc-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; 
+    border: 10px solid #f9f9f9; 
+    background-color: #000; 
+    border-radius: 5px;
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* --- TEXT FIX --- */
+  p {
+    text-align : center;
+    font-size: 17px; /* Card bada hua to text bhi thoda bada kiya */
+    line-height: 1.5;
+    color: #3c4a85;
+    margin-top: 10px;
+    padding: 0 5px;
+    width: 100%;
+    overflow-y: auto; 
+    max-height: 60%;
+  }
+  
+  p::-webkit-scrollbar { width: 5px; }
+  p::-webkit-scrollbar-thumb { background: #888; border-radius: 5px; }
+
+  /* --- VIDEO FIX --- */
+  #secondimg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+  }
+
+  #msg{
+    color: white;
+    font-weight: normal;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+
+  @media (max-width: 567px) {
+    .card { left: 50%; top: 50%; }
+
+    /* Mobile Size (Increased) */
+    .card, .card-page, .sc-page {
+      width: 280px; 
+      height: 420px;
+    }
+
+    p { 
+      font-size: 13px; /* Mobile text thoda readable kiya */
+      line-height: 1.3;
+      margin-top: 10px;
+    }
+
+    .cart-page-inside, .sc-page {
+      border: 5px solid #f9f9f9;
+      background-size: cover;
+      padding: 10px;
+    }
+
+    .cart-page-outside { 
+        border: 5px solid #fbfbfb; 
+        background-size: 100% 100%;
+    }
+    
+    .new-year img { 
+      max-width: 150px; 
+      max-height: 25%;
+      margin-top: 15px;
+    }
+
+    footer { text-align: left; margin-top: 20px; font-size: 31px; }
+   }
+   </style>
+</head>
+<body>
+     <div class="card">
+       <div class="card-page cart-page-front">
+         <div class="card-page cart-page-outside"></div>
+         
+         <div class="card-page cart-page-inside">
+            <span class="new-year">
+              <img src="img1.jpg" alt="Cake">
+              <p id="msg">
+                <b>Vidushi ! 💙🧿</b><br><br>
+                You’re such a kind and genuine person, and I’m really glad to have met you and have you as a friend.<br><br> 
+                <b>About Her</b><br>
+                She’s a mix of confidence and innocence,<br>
+                someone who makes quick decisions without much thought.<br>
+                She chooses peace, stays real, and has a kind heart.<br>
+                Still growing, still learning, still herself.
+              </p>
+             </span>
+         </div>
+       </div>
+       
+       <div class="sc-page">
+          <video id="secondimg" controls playsinline>
+            <source src="movie.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+      </div>
+    </div>
+
+    <script>
+      const elemCard = document.querySelector(".card");
+      elemCard.addEventListener("click", function () {
+        elemCard.classList.toggle("is-opened");
+      });
+    </script>
+</body>
+</html>
+
